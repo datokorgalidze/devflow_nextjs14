@@ -1,3 +1,4 @@
+ 
   import { Button } from "@/components/ui/button"; 
   import Link from "next/link";
   import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
@@ -6,17 +7,62 @@
   import HomeFilters from "@/components/home/HomeFilters";
   import NoResult from "@/components/shared/NoResult";
   import QuestionsCard from "@/components/cards/QuestionsCard";
-  import { getQuestions } from "@/lib/actions/question.action";
+  import { getQuestions,   getRecommendedQuestions } from "@/lib/actions/question.action";
+  import { SearchParamsProps } from "@/types";
+  import Pagination from "@/components/shared/Pagination";
+  import { Metadata } from "next";
+  import { auth } from "@clerk/nextjs";
+
+
+  export const metadata: Metadata = {
+    title: "Home | Next Dev Overflow",
+  };
 
 
 
 
 
   
-  async function Home() {
+  async function Home({searchParams}: SearchParamsProps) {
+      
     
-    const result = await getQuestions({})
-    // console.log(result.questions)
+    const { userId } = auth();
+    let result;
+  
+    if (searchParams?.filter === "recommended") {
+      if (userId) {
+        result = await getRecommendedQuestions({
+          userId,
+          searchQuery: searchParams.q,
+          page: searchParams.page ? +searchParams.page : 1,
+        });
+      } else {
+        result = {
+          questions: [],
+          isNext: false,
+        };
+      }
+    } else {
+      result = await getQuestions({
+        searchQuery: searchParams.q,
+        filter: searchParams.filter,
+        page: searchParams.page ? +searchParams.page : 1,
+      });
+    }
+  
+    
+
+
+
+    
+    // const result = await getQuestions({
+    //     searchQuery:searchParams.q,
+    //     filter: searchParams.filter,
+    //     page: searchParams.page ? +searchParams.page : 1
+    // })
+
+   
+  
 
     return (
       <> 
@@ -28,7 +74,7 @@
             href= "/ask-questions"
             className="flex justify-end max-sm:w-full"
           >
-            <Button className="primary-gradient min-h-[46px] px-4 py-3 !text-light-900">
+            <Button  className="primary-gradient min-h-[46px] px-4 py-3 !text-light-900">
               Ask a Question
             </Button> 
           </Link>
@@ -74,6 +120,13 @@
              /> 
            }
         </div> 
+        
+        <div className="mt-10">
+          <Pagination
+            pageNumber={searchParams?.page ? +searchParams.page : 1}
+            isNext={result.isNext}
+          />
+        </div>
       </>
     )
   }

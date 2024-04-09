@@ -5,28 +5,41 @@ import { sidebarLinks } from "@/costants"
 import Link from "next/link"
 import { SignedOut } from "@clerk/nextjs"
 import { Button } from "../ui/button"
+import { useAuth } from "@clerk/nextjs"
+import { useClerk } from "@clerk/clerk-react";
+import { useRouter } from 'next/navigation'
 
 const LeftSidebar = () => {
-    const pathname = usePathname()
+    const pathname = usePathname();
+    const {userId} = useAuth();
+    const router = useRouter();
+    const {signOut } = useClerk();
     return(
        <section  className="background-light900_dark200  justify-between
-       light-border custom-scrollbar 
-       sticky left-0 top-0 flex h-screen flex-col 
-       overflow-y-auto border-r p-6 pt-36
-       shadow-light-300 dark:shadow-none max-sm:hidden lg:w-[266px]">
+            light-border custom-scrollbar 
+            sticky left-0 top-0 flex h-screen flex-col 
+            overflow-y-auto border-r p-6 pt-36
+            shadow-light-300 dark:shadow-none max-sm:hidden lg:w-[266px]">
            <div className="flex flex-1 flex-col gap-6 mb-5">
             {sidebarLinks.map((item) => {
                 const isActive = (pathname.includes(item.route) && item.route.length > 1 || 
                 pathname === item.route )
+                if( item.route === '/profile'){
+                   if(userId){
+                     item.route = `${item.route}/${userId}`
+                   }else{
+                    return null
+                   }
+                }
                 return(
-                       <Link
+                      <Link
                        key={item.route} 
                         href={item.route}
                         className={`${
                             isActive
                               ? "primary-gradient rounded-lg text-light-900"
                               : "text-dark300_light900"
-                          } flex items-center justify-start gap-4 bg-transparent p-4`}
+                          } flex items-center justify-start gap-4 bg-transparent p-4 hover:primary-gradient  focus:text-light-900`}
 
                         >
                         <Image
@@ -63,14 +76,17 @@ const LeftSidebar = () => {
                                    Log In
                                 </span>
                             </Button>
-                         </Link>     
+                         </Link> 
+                         </div>
+                      </SignedOut>   
                          <Link
-                           href = '/sign-up'
-                         >
-                            <Button className="small-medium light-border-2 btn-tertiary
+                           href = '/'
+                           >
+                            <Button  onClick={() => signOut(() => router.push("/"))}
+                            className="small-medium light-border-2 btn-tertiary
                              text-dark400_light900 min-h-[41px] w-full
                               rounded-lg px-4 py-3 shadow-none">
-                                 <Image
+                               <Image
                                 src="/assets/icons/sign-up.svg"
                                 alt="log out"
                                 width={20}
@@ -81,11 +97,9 @@ const LeftSidebar = () => {
                                    Log Out
                                 </span>
                             </Button>
-                         </Link>
-                   
-                   </div>
-                </SignedOut>
-       </section>
+                         </Link>  
+                
+               </section>
     )
 }
 

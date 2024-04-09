@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge"
 
 
 interface Props  {
-   _id:number;
+   _id:number | string;
    name: string;
    totalQuestions?: number;
    showCount?: Boolean 

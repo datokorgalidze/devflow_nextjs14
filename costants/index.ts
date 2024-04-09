@@ -22,11 +22,11 @@ export const sidebarLinks: SidebarLink[] = [
     route: "/collection",
     label: "Collections",
   },
-  {
-    imgURL: "/assets/icons/suitcase.svg",
-    route: "/jobs",
-    label: "Find Jobs",
-  },
+  // {
+  //   imgURL: "/assets/icons/suitcase.svg",
+  //   route: "/jobs",
+  //   label: "Find Jobs",
+  // },
   {
     imgURL: "/assets/icons/tag.svg",
     route: "/tags",
@@ -39,19 +39,19 @@ export const sidebarLinks: SidebarLink[] = [
   },
   {
     imgURL: "/assets/icons/question.svg",
-    route: "/ask-question",
+    route: "/ask-questions",
     label: "Ask a question",
   },
 ];
 
 export const BADGE_CRITERIA = {
   QUESTION_COUNT: {
-    BRONZE: 10,
+    BRONZE: 5,
     SILVER: 50,
     GOLD: 100,
   },
   ANSWER_COUNT: {
-    BRONZE: 10,
+    BRONZE: 5,
     SILVER: 50,
     GOLD: 100,
   },

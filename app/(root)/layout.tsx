@@ -1,11 +1,14 @@
 import LeftSidebar from "@/components/shared/LeftSidebar";
 import NavBar from "@/components/shared/navbar/NavBar";
 import RightSidebar from "@/components/shared/RightSidebar";
+import { ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Layout = ({children}: {children: React.ReactNode}) => {
     return(
         <main className="background-light850_dark100 relative">
+         <ToastContainer/>
            <NavBar/>
            <div className="flex">
             <LeftSidebar/>
@@ -16,7 +19,6 @@ const Layout = ({children}: {children: React.ReactNode}) => {
             </section>
             <RightSidebar/>
            </div>
-           Toaster
         </main>
     )
 }

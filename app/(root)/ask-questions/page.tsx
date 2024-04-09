@@ -2,16 +2,31 @@
  import { auth } from "@clerk/nextjs";
  import { redirect } from "next/navigation";
  import { getUserById } from "@/lib/actions/user.action";
+ import { Metadata } from "next";
 
-const Page = async ( ) => {
-    // const { userId } = auth()
-    const userId =  "12345"
+
+
+
+
+ export const metadata: Metadata = {
+   title: "Ask Question | Next Dev Overflow",
+ };
+
+
+
+
+
+
+
+  const Page = async ( ) => {
+    const { userId } = auth()
+  
     
     if(!userId) redirect('/sign-in')
 
    const mongooseUser = await getUserById({userId})
 
-//    console.log("myuser:",mongooseUser)
+
    
     return(
         <div>
@@ -19,7 +34,7 @@ const Page = async ( ) => {
                 Ask a Question
             </h1>
             <div>
-                <Question mongoUserId = {JSON.stringify(mongooseUser._id)}/>
+                <Question mongoUserId = {JSON.stringify(mongooseUser?._id)}/>
             </div>
         </div>
     )  
