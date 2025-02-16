@@ -4,8 +4,6 @@
 
 It's not just a website; it's a community-driven platform designed to empower newcomers to the world of web development. Dev Overflow serves as a "Stack Overflow" for those seeking answers and guidance in their web development journey.
 
-Discord Channel: https://discord.gg/mmmqtKfh
-
 ![thumb](./public/assets/images/home.png)
 
 ## Key Features:
@@ -22,3 +20,7 @@ Discord Channel: https://discord.gg/mmmqtKfh
 ![dark](./public/assets/images/dark.png)
 
 Dev Overflow is more than just a website; it's a vibrant community of web enthusiasts helping each other grow. Whether you're a newbie or an experienced developer, you'll find a welcoming space to ask questions, share knowledge, and collaborate.
+
+[![David Korgalidze Linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/dato-korgalidze/)
+
+DAVID KORGALIDZE
